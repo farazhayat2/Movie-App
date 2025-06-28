@@ -1,6 +1,7 @@
+// MovieDetail.jsx
 import React from "react";
 
-export default function MovieDetail({ movie }) {
+export default function MovieDetail({ movie, darkMode }) {
   const containerStyle = {
     display: "flex",
     flexDirection: window.innerWidth < 768 ? "column" : "row",
@@ -9,9 +10,13 @@ export default function MovieDetail({ movie }) {
     padding: "2rem",
     maxWidth: "900px",
     margin: "0 auto",
-    backgroundColor: "#ffffff",
+    backgroundColor: darkMode ? "#1e293b" : "#ffffff",
+    color: darkMode ? "#f8fafc" : "#0f172a",
     borderRadius: "12px",
-    boxShadow: "0 6px 20px rgba(0,0,0,0.1)",
+    boxShadow: darkMode
+      ? "0 6px 20px rgba(0,0,0,0.5)"
+      : "0 6px 20px rgba(0,0,0,0.1)",
+    transition: "all 0.3s ease",
   };
 
   const posterStyle = {
@@ -28,36 +33,17 @@ export default function MovieDetail({ movie }) {
     fontSize: "1.8rem",
     fontWeight: "bold",
     marginBottom: "1rem",
-    color: "#0f172a",
   };
 
   const textStyle = {
     marginBottom: "0.5rem",
-    color: "#334155",
     fontSize: "1rem",
   };
 
   const plotStyle = {
     marginTop: "1rem",
-    color: "#475569",
     lineHeight: "1.6",
   };
-
-  const buttonStyle = {
-    marginTop: "1.5rem",
-    padding: "12px 20px",
-    backgroundColor: "#16a34a",
-    color: "white",
-    fontSize: "16px",
-    border: "none",
-    borderRadius: "8px",
-    cursor: "pointer",
-    textDecoration: "none",
-    display: "inline-block",
-  };
-
-  // ✅ Demo download link
-  const demoDownloadUrl = "https://file-examples.com/storage/fe2f6d6bb9a38bb226556fe/2017/04/file_example_MP4_480_1_5MG.mp4";
 
   return (
     <div style={containerStyle}>
@@ -78,18 +64,6 @@ export default function MovieDetail({ movie }) {
         <div style={textStyle}><strong>Runtime:</strong> {movie.Runtime}</div>
         <div style={textStyle}><strong>IMDb Rating:</strong> {movie.imdbRating}</div>
         <div style={plotStyle}><strong>Plot:</strong> {movie.Plot}</div>
-
-        {/* ✅ Direct download button */}
-        <a
-  href="https://samplelib.com/lib/preview/mp4/sample-5s.mp4"
-  download
-  target="_blank"
-  rel="noopener noreferrer"
-  style={buttonStyle}
->
-  Download Movie
-</a>
-
       </div>
     </div>
   );

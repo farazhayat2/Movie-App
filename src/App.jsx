@@ -1,7 +1,7 @@
+// App.jsx
 import React, { useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Navbar from "./Components/navbar";
-import CategoryDropdown from "./Components/CategoryBar"; 
 import Home from "./Components/Home";
 import MoviePage from "./Components/MoviePage";
 
@@ -9,9 +9,9 @@ const API_KEY = "67eb2a6c";
 
 function App() {
   const [movies, setMovies] = useState([]);
+  const [darkMode, setDarkMode] = useState(false);
   const navigate = useNavigate();
 
-  // Load default movies on initial load
   useEffect(() => {
     fetchMovies("Avengers");
   }, []);
@@ -28,27 +28,40 @@ function App() {
 
   const handleSearch = async (title) => {
     await fetchMovies(title);
-    navigate("/"); // Return to home after search
+    navigate("/");
   };
 
   const handleGenreClick = async (genre) => {
     await fetchMovies(genre);
-    navigate("/"); // Ensure it stays on home page
+    navigate("/");
   };
+
+  const toggleTheme = () => setDarkMode((prev) => !prev);
 
   return (
     <div
       style={{
         minHeight: "100vh",
-        backgroundColor: "#f8fafc",
+        backgroundColor: darkMode ? "#0f172a" : "#f8fafc",
+        color: darkMode ? "#e2e8f0" : "#1e293b",
         fontFamily: "Arial, sans-serif",
+        transition: "all 0.3s ease",
       }}
     >
-      <Navbar onSearch={handleSearch} />
-      <CategoryDropdown onGenreClick={handleGenreClick} /> {/* ✅ Updated here */}
+      <Navbar onSearch={handleSearch} darkMode={darkMode} toggleTheme={toggleTheme} />
+
       <Routes>
-        <Route path="/" element={<Home movies={movies} />} />
-        <Route path="/movie/:id" element={<MoviePage />} />
+        <Route
+          path="/"
+          element={
+            <Home
+              movies={movies}
+              darkMode={darkMode}
+              onGenreClick={handleGenreClick} // ✅ pass this to Home
+            />
+          }
+        />
+        <Route path="/movie/:id" element={<MoviePage darkMode={darkMode} />} />
       </Routes>
     </div>
   );

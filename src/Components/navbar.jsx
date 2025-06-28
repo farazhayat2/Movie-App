@@ -1,6 +1,7 @@
+// Navbar.jsx
 import React, { useState, useEffect } from "react";
 
-export default function Navbar({ onSearch }) {
+export default function Navbar({ onSearch, darkMode, toggleTheme }) {
   const [query, setQuery] = useState("");
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
 
@@ -11,24 +12,29 @@ export default function Navbar({ onSearch }) {
   }, []);
 
   const handleSearch = () => {
-    if (query.trim()) onSearch(query);
+    if (query.trim()) {
+      onSearch(query.trim());
+      setQuery(""); // Optional: clear input after search
+    }
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === "Enter") handleSearch();
+    if (e.key === "Enter") {
+      handleSearch();
+    }
   };
 
   const navbarStyle = {
-    width: "100%", // 👈 full width!
+    width: "100%",
     display: "flex",
     flexDirection: isMobile ? "column" : "row",
     alignItems: "center",
     justifyContent: "space-between",
     padding: "1rem 2rem",
-    backgroundColor: "#0f172a",
-    color: "#ffffff",
+    backgroundColor: darkMode ? "#1e293b" : "#f1f5f9",
+    color: darkMode ? "#f1f5f9" : "#1e293b",
     gap: isMobile ? "1rem" : "0",
-    boxSizing: "border-box", // 👈 to include padding inside width
+    boxSizing: "border-box",
   };
 
   const titleStyle = {
@@ -48,14 +54,17 @@ export default function Navbar({ onSearch }) {
   const inputStyle = {
     padding: "0.5rem",
     borderRadius: "6px",
-    border: "none",
+    border: "1px solid",
+    borderColor: darkMode ? "#475569" : "#cbd5e1",
+    backgroundColor: darkMode ? "#334155" : "#ffffff",
+    color: darkMode ? "#f8fafc" : "#0f172a",
     width: isMobile ? "100%" : "250px",
   };
 
   const buttonStyle = {
     padding: "0.5rem 1rem",
-    backgroundColor: "#2563eb",
-    color: "white",
+    backgroundColor: darkMode ? "#475569" : "#e2e8f0",
+    color: darkMode ? "#f8fafc" : "#0f172a",
     border: "none",
     borderRadius: "6px",
     cursor: "pointer",
@@ -63,7 +72,8 @@ export default function Navbar({ onSearch }) {
 
   return (
     <nav style={navbarStyle}>
-      <div style={titleStyle}>Movie Search App</div>
+      <div style={titleStyle}>🎬 Movie App</div>
+
       <div style={searchContainerStyle}>
         <input
           type="text"
@@ -74,7 +84,10 @@ export default function Navbar({ onSearch }) {
           style={inputStyle}
         />
         <button onClick={handleSearch} style={buttonStyle}>
-          Search
+          🔍 Search
+        </button>
+        <button onClick={toggleTheme} style={buttonStyle}>
+          {darkMode ? "🌞 Light" : "🌙 Dark"}
         </button>
       </div>
     </nav>

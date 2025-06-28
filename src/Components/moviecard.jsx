@@ -1,37 +1,27 @@
+// MovieCard.jsx
 import React from "react";
 
-export default function MovieCard({ movie, onClick }) {
+export default function MovieCard({ movie, onClick, darkMode }) {
   const cardStyle = {
-    width: "220px",
-    backgroundColor: "#ffffff",
-    borderRadius: "10px",
-    overflow: "hidden",
-    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+    backgroundColor: darkMode ? "#1e293b" : "#ffffff",
+    color: darkMode ? "#f1f5f9" : "#1e293b",
+    padding: "1rem",
+    borderRadius: "8px",
+    width: "200px",
+    boxShadow: darkMode
+      ? "0 4px 12px rgba(0,0,0,0.4)"
+      : "0 4px 12px rgba(0,0,0,0.1)",
     cursor: "pointer",
-    transition: "transform 0.2s",
+    textAlign: "center",
+    transition: "all 0.3s ease",
   };
 
   const imageStyle = {
     width: "100%",
     height: "300px",
     objectFit: "cover",
-  };
-
-  const contentStyle = {
-    padding: "0.75rem",
-    textAlign: "center",
-  };
-
-  const titleStyle = {
-    fontSize: "1rem",
-    fontWeight: "bold",
-    margin: "0.5rem 0 0.25rem",
-    color: "#111827",
-  };
-
-  const yearStyle = {
-    fontSize: "0.875rem",
-    color: "#64748b",
+    borderRadius: "6px",
+    marginBottom: "0.5rem",
   };
 
   return (
@@ -41,10 +31,8 @@ export default function MovieCard({ movie, onClick }) {
         alt={movie.Title}
         style={imageStyle}
       />
-      <div style={contentStyle}>
-        <div style={titleStyle}>{movie.Title}</div>
-        <div style={yearStyle}>{movie.Year}</div>
-      </div>
+      <h3>{movie.Title}</h3>
+      <p>{movie.Year}</p>
     </div>
   );
 }

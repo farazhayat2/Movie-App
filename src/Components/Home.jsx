@@ -1,7 +1,7 @@
 // Home.jsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import MovieCard from "./MovieCard";
+import MovieCard from "./moviecard";
 import CategoryDropdown from "./CategoryBar"; // ✅ imported here only
 
 export default function Home({ movies, darkMode, onGenreClick }) {

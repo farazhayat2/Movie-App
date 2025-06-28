@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import Navbar from "./Components/Navbar";
+import Navbar from "./Components/navbar";
 import CategoryDropdown from "./Components/CategoryBar"; 
 import Home from "./Components/Home";
 import MoviePage from "./Components/MoviePage";
